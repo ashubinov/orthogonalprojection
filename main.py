@@ -126,10 +126,10 @@ class Viewer:
             self.update()
 
     def fit(self):
-        xy = self._segments().reshape(-1, 2)
+        xy = self.scene.raw_segments_xy().reshape(-1, 2)
         xy = xy[np.isfinite(xy).all(axis=1)]
         if len(xy):
-            self.scene.apply(t.fit_matrix(xy.min(axis=0), xy.max(axis=0), self.R, FIT_FILL))
+            self.scene.fit_M = t.fit_matrix(xy.min(axis=0), xy.max(axis=0), self.R, FIT_FILL)
             self.update()
 
     def reset(self):
